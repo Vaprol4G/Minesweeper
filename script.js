@@ -82,7 +82,7 @@ function processing_move(event)
             break;
           }
       }
-      
+
       if (flag)
       {
         let cell_contain = document.getElementsByClassName('field-container')[0];
@@ -91,10 +91,12 @@ function processing_move(event)
           cell_contain.removeChild(cell_contain.children[0]);
         }
       
-      cell_contain.style.height='993px';
-      cell_contain.style.width='1134px';
+      cell_contain.classList.add("field-container_2");
+      cell_contain.style.height='496px';
+      cell_contain.style.width='567px';
       cell_contain.style.backgroundImage = "url(data_pictures/completed.jpg)";
-      
+      cell_contain.style.backgroundSize = "cover";
+
       document.getElementsByClassName("field-container")[0].removeEventListener('click', processing_move);
       document.getElementsByClassName("field-container")[0].removeEventListener('contextmenu', mark_a_cell);
       document.removeEventListener('keydown', events_keyboard);
@@ -135,7 +137,7 @@ function calc_bomb_around(event_elem)
 
   let count = 0; 
   if (i % 12 != 0 && i - WIDTH - 1 > 0 && field[i - WIDTH - 1].isBomb) { ++count; }  
-  if (i - WIDTH > 0 && field[i - WIDTH].isBomb) { ++count; }   // вверху
+  if (i - WIDTH > 0 && field[i - WIDTH].isBomb) { ++count; }
   if ((i+1) % 12 != 0 && i - WIDTH + 1 > 0 && field[i - WIDTH + 1].isBomb) { ++count; }  
 
   if ((i != 0 && i % 12 != 0) && i - 1 > 0 && field[i - 1].isBomb) { ++count; }  
@@ -154,6 +156,18 @@ function show_bomb_around(event_elem, count)
   span.innerText = count;
   span.classList.add('amount_bomb_around');
   event_elem.appendChild(span);
+
+  switch(count)
+  {
+    case 0 : event_elem.style.backgroundColor = "white"; break;
+    case 1 : event_elem.style.backgroundColor = "#FFFF00"; break;
+    case 2 : event_elem.style.backgroundColor = "#FFD700"; break;
+    case 3 : event_elem.style.backgroundColor = "#FFA500"; break;
+    case 4 : event_elem.style.backgroundColor = "#FF8C00"; break;
+    case 5 : event_elem.style.backgroundColor = "#FF4500"; break;
+    default : event_elem.style.backgroundColor = "##B22222"; break;
+    
+  }
 
   return;
 }
